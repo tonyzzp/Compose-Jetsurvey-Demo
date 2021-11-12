@@ -99,7 +99,9 @@ private fun Gate(vm: FormViewModel) {
             ResultPage(
                 vm = vm,
                 onDone = {
-                    navController.popBackStack("login", false)
+                    if (!navController.popBackStack("login", false)) {
+                        navigateTo(navController, "login", true)
+                    }
                 },
             )
         }

@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.google.accompanist.insets.navigationBarsPadding
 import me.izzp.jetsurveydemo.FormViewModel
 import me.izzp.jetsurveydemo.LocalSystemBarsInfo
 import me.izzp.jetsurveydemo.QuestionType
@@ -38,12 +39,8 @@ fun ResultPage(
             modifier = Modifier
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState())
-                .padding(
-                    bottom = systemBarsInfo.navigationBarHeightDp + 16.dp,
-                    start = 16.dp,
-                    end = 16.dp,
-                    top = 16.dp,
-                ),
+                .navigationBarsPadding()
+                .padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
             vm.questions.forEach { question ->

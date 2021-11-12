@@ -2,39 +2,30 @@ package me.izzp.jetsurveydemo
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.platform.LocalDensity
-import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.Density
 import com.google.accompanist.insets.LocalWindowInsets
 import com.google.accompanist.insets.ProvideWindowInsets
 
-@Immutable
+//@Immutable
 class SystemBarsInfo(
+    density: Density,
     val statusBarHeight: Int,
     val navigationBarHeight: Int,
     val imeHeight: Int,
 ) {
-    val statusBarHeightDp: Dp
-        @Composable
-        get() = with(LocalDensity.current) { statusBarHeight.toDp() }
+    val statusBarHeightDp = with(density) { statusBarHeight.toDp() }
+    val navigationBarHeightDp = with(density) { navigationBarHeight.toDp() }
+    val imeHeightDp = with(density) { imeHeight.toDp() }
 
-    val navigationBarHeightDp: Dp
-        @Composable
-        get() = with(LocalDensity.current) { navigationBarHeight.toDp() }
-
-    val imeHeightDp: Dp
-        @Composable
-        get() = with(LocalDensity.current) { imeHeight.toDp() }
-
-    @Composable
     fun dump() {
         println("StatusBarHeight=$statusBarHeightDp, navigationBarHeight=$navigationBarHeightDp, imeHeight=$imeHeightDp")
     }
 }
 
 val LocalSystemBarsInfo = staticCompositionLocalOf {
-    SystemBarsInfo(0, 0, 0)
+    SystemBarsInfo(Density(1f, 1f), 0, 0, 0)
 }
 
 @Composable
@@ -44,6 +35,7 @@ fun ProvideSystemBarsInfo(
     ProvideWindowInsets(false, false) {
         val insets = LocalWindowInsets.current
         val info = SystemBarsInfo(
+            LocalDensity.current,
             insets.statusBars.top,
             insets.navigationBars.bottom,
             insets.ime.bottom,

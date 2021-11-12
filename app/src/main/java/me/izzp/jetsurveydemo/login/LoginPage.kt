@@ -28,23 +28,20 @@ fun LoginPage(
     onGuest: () -> Unit,
 ) {
     rememberSystemUiController().setSystemBarsColor(Color.Transparent, !isSystemInDarkTheme())
-    Surface(
-        Modifier
-            .fillMaxSize()
-            .systemBarsPadding()
-    ) {
+    Surface(Modifier.fillMaxSize()) {
         Column(
-            modifier = Modifier.fillMaxWidth().padding(12.dp),
+            modifier = Modifier.fillMaxWidth().padding(12.dp).systemBarsPadding(),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Image(
                 painterResource(if (isSystemInDarkTheme()) R.drawable.ic_logo_dark else R.drawable.ic_logo_light),
                 null,
-                modifier = Modifier.padding(0.dp, 12.dp),
+                modifier = Modifier.padding(top = 36.dp),
             )
             Text(
                 text = "Better surveys with Jetpack Compose",
                 style = mtTypography.subtitle1,
+                modifier = Modifier.padding(top = 8.dp)
             )
             Spacer(Modifier.weight(1f))
 
